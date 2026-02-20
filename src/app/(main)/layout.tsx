@@ -1,3 +1,6 @@
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
 export default function MainLayout({
   children,
 }: {
@@ -5,9 +8,9 @@ export default function MainLayout({
 }) {
   return (
     <div className="flex flex-col min-h-screen">
-      <nav>Navbar</nav>
+      <Navbar />
       <main className="grow container mx-auto px-4 py-8">{children}</main>
-      <footer>Footer</footer>
+      <Footer />
     </div>
   );
 }
