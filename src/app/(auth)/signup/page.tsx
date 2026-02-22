@@ -11,7 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { pb } from "@/lib/pocketbase";
-import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
 import { Formik, Form } from "formik";
@@ -19,8 +18,6 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import { signupSchema } from "@/lib/schemas";
 
 export default function Signup() {
-  const router = useRouter();
-
   return (
     <div>
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
@@ -34,7 +31,7 @@ export default function Signup() {
           passwordConfirm: "",
         }}
         validationSchema={toFormikValidationSchema(signupSchema)}
-        onSubmit={async (values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
           try {
             await pb.collection("users").create({
               email: values.email,
@@ -42,8 +39,11 @@ export default function Signup() {
               passwordConfirm: values.passwordConfirm,
               emailVisibility: true,
             });
-            toast.success("Account created!");
-            router.push("/login");
+            await pb.collection("users").requestVerification(values.email);
+            toast.success(
+              "Success! A verification link has been sent to your email account.",
+            );
+            resetForm();
           } catch (err: any) {
             console.error(err);
             toast.error(err.message || "Error creating account");
@@ -69,9 +69,11 @@ export default function Signup() {
                     id="email"
                     name="email"
                     type="email"
+                    placeholder="email@example.com"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.email}
+                    autoFocus
                   />
                   {touched.email && errors.email && (
                     <FieldError>{errors.email}</FieldError>
@@ -83,6 +85,7 @@ export default function Signup() {
                     id="password"
                     name="password"
                     type="password"
+                    placeholder="••••••••"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.password}
@@ -103,6 +106,7 @@ export default function Signup() {
                     id="confirm-password"
                     name="passwordConfirm"
                     type="password"
+                    placeholder="••••••••"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.passwordConfirm}
@@ -113,22 +117,24 @@ export default function Signup() {
                 </Field>
               </FieldGroup>
             </FieldSet>
-            <Button disabled={isSubmitting} type="submit">
-              {isSubmitting ? (
-                <>
-                  <Spinner data-icon="inline-start" /> Loading...
-                </>
-              ) : (
-                "Sign up"
-              )}
-            </Button>
+            <div>
+              <Button disabled={isSubmitting} type="submit">
+                {isSubmitting ? (
+                  <>
+                    <Spinner data-icon="inline-start" /> Loading...
+                  </>
+                ) : (
+                  "Sign up"
+                )}
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>
 
       <div className="text-sm">
         <span className="leading-7 not-first:mt-6">
-          Already have an account?
+          Already have an account?{" "}
         </span>
         <Button variant="link" asChild className="p-0 h-auto">
           <Link href="/login">Login</Link>

@@ -6,7 +6,12 @@ export function proxy(request: NextRequest) {
   const authCookie = request.cookies.get("pb_auth");
   const { pathname } = request.nextUrl;
 
-  if (authCookie && (pathname === "/login" || pathname === "/signup")) {
+  if (
+    authCookie &&
+    (pathname === "/login" ||
+      pathname === "/signup" ||
+      pathname === "/confirm-verification")
+  ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
@@ -18,5 +23,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/login", "/signup"],
+  matcher: ["/", "/login", "/signup", "/confirm-verification"],
 };

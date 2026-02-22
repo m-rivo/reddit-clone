@@ -26,12 +26,19 @@ export default function Login() {
         }}
         onSubmit={async (values, { setSubmitting }) => {
           try {
-            await pb
+            const authData = await pb
               .collection("users")
               .authWithPassword(values.username, values.password);
+
+            if (!authData.record.verified) {
+              pb.authStore.clear();
+              toast.error("Please verify your email before logging in.");
+              return;
+            }
+
             console.log("Successful login!");
 
-            Cookies.set("pb_auth", pb.authStore.exportToCookie(), {
+            Cookies.set("pb_auth", pb.authStore.token, {
               expires: 7, //days
               path: "/",
               sameSite: "strict",
@@ -79,27 +86,29 @@ export default function Login() {
                 </Field>
               </FieldGroup>
             </FieldSet>
-            <Button variant="link" asChild>
-              <Link href="#">Forgot password?</Link>
-            </Button>
-            <Button disabled={isSubmitting}>
-              {isSubmitting ? (
-                <>
-                  <Spinner data-icon="inline-start" />
-                  Loading...
-                </>
-              ) : (
-                "Login"
-              )}
-            </Button>
+            <div>
+              <Button variant="link" asChild>
+                <Link href="#">Forgot password?</Link>
+              </Button>
+              <Button disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Spinner data-icon="inline-start" />
+                    Loading...
+                  </>
+                ) : (
+                  "Login"
+                )}
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>
-      <div>
+      <div className="text-sm">
         <span className="leading-7 not-first:mt-6">
-          Don&apos;t have an account?
+          Don&apos;t have an account?{" "}
         </span>
-        <Button variant="link" asChild>
+        <Button variant="link" asChild className="p-0 h-auto">
           <Link href="/signup">Sign up</Link>
         </Button>
       </div>
