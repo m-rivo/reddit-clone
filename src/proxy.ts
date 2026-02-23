@@ -10,7 +10,9 @@ export function proxy(request: NextRequest) {
     authCookie &&
     (pathname === "/login" ||
       pathname === "/signup" ||
-      pathname === "/confirm-verification")
+      pathname === "/confirm-verification" ||
+      pathname === "/forgot-password" ||
+      pathname === "/confirm-password-reset")
   ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
@@ -23,5 +25,12 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/login", "/signup", "/confirm-verification"],
+  matcher: [
+    "/",
+    "/login",
+    "/signup",
+    "/confirm-verification",
+    "/forgot-password",
+    "/confirm-password-reset",
+  ],
 };

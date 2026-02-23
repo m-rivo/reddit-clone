@@ -10,3 +10,13 @@ export const signupSchema = z
     message: "Passwords don't match",
     path: ["passwordConfirm"],
   });
+
+export const passwordResetSchema = z
+  .object({
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    passwordConfirm: z.string(),
+  })
+  .refine((data) => data.password === data.passwordConfirm, {
+    message: "Passwords don't match",
+    path: ["passwordConfirm"],
+  });

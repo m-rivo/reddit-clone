@@ -88,7 +88,7 @@ export default function Login() {
             </FieldSet>
             <div>
               <Button variant="link" asChild>
-                <Link href="#">Forgot password?</Link>
+                <Link href="/forgot-password">Forgot password?</Link>
               </Button>
               <Button disabled={isSubmitting}>
                 {isSubmitting ? (
