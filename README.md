@@ -1,6 +1,6 @@
 # Reddit Clone
 
-This is a Reddit clone developed with **Next.js 16 (App Router)**, **TypeScript**, **Shadcn/ui components** and **PocketBase 0.36.5** as a Backend-as-a-Service.
+This is a Reddit clone developed with **Next.js 16 (React)**, **TypeScript**, **Tailwind CSS**, **Shadcn/ui components** and **PocketBase 0.36.5** as a Backend-as-a-Service.
 
 ---
 
