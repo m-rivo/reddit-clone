@@ -38,15 +38,15 @@ npm run dev
 ## Email & Auth Configuration
 To ensure the user verification and password reset flows work correctly:
 
-1. Log in to the PocketBase Admin UI.
+1. Log in to the PocketBase Admin UI http://127.0.0.1:8090/_/.
 2. Go to Settings > Application:
-  * Set Application URL to http://localhost:3000.
+     * Set Application URL to http://localhost:3000.
 3. Go to Settings > Mail Settings:
-  * Enable Use SMTP mail server (MailHog):
-    * Host: localhost
-    * Port: 1025
-    * Leave Username and Password empty
-4. All outgoing emails will be intercepted and visible in the MailHog Web UI  http://localhost:8025.
+     * Enable Use SMTP mail server:
+       * Host: localhost
+       * Port: 1025
+       * Leave Username and Password empty
+4. All outgoing emails will be intercepted and visible in the MailHog Web UI http://localhost:8025.
 
 ## Project Structure
 * src/app: Routes and layouts.
