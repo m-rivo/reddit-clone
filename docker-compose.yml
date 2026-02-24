@@ -8,7 +8,6 @@ services:
       - ./pb_migrations:/pb/pb_migrations
       - ./pb_data:/pb/pb_data
     command:
-      - /pb/pocketbase
       - serve
       - --http=0.0.0.0:8080
       - --automigrate
