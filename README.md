@@ -28,19 +28,7 @@ To intercept verification emails without using a real SMTP provider:
 1. Download the MailHog binary for your OS from the [MailHog v1.0.0 Releases](https://github.com/mailhog/MailHog/releases/v1.0.0).
 2. Run the executable. It will start the SMTP server on port 1025 and the [Web UI on port 8025](http://localhost:8025).
 
-### 3. Frontend (Next.js)
-Run the following commands in the root directory to start the frontend:
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Start the development server:
-   ```bash
-   npm run dev
-   ```
-3. Open http://localhost:3000 in your browser.
-
-## Email & Auth Configuration
+### 3. Email & Auth Configuration
 To ensure the user verification and password reset flows work correctly:
 
 1. Log in to the PocketBase Admin UI http://localhost:8090/_/.
@@ -52,6 +40,20 @@ To ensure the user verification and password reset flows work correctly:
        * Port: 1025
        * Leave Username and Password empty
 4. All outgoing emails will be intercepted and visible in the MailHog Web UI http://localhost:8025.
+
+### 4. Frontend (Next.js)
+Run the following commands in the root directory to start the frontend:
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+3. Open http://localhost:3000 in your browser.
+
+
 
 ## Project Structure
 * src/app: Routes and layouts.
