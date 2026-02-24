@@ -14,7 +14,7 @@ Before you begin, ensure you have [Node.js](https://nodejs.org/en/download) inst
 
 ### 1. Backend (PocketBase)
 1. Download the PocketBase executable for your operating system from the [PocketBase Documentation](https://pocketbase.io/docs/).
-2. Extract and place the pocketbase executable in the project root.
+2. Extract and place the pocketbase executable in the **backend folder**.
 3. Start the server with automatic migrations enabled:
 
    ```bash
