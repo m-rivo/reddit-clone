@@ -15,11 +15,19 @@ Before you begin, ensure you have the following installed:
 ## Instalation & Setup
 
 ### 1. Backend (PocketBase & MailHog)
-Run the following command in the root directory to start the backend services:
+1. Run the following command in the root directory to start the backend services:
 
    ```bash
    docker compose up -d
    ```
+
+2. Run the following command to create a Pocketbase superuser:
+```bash
+docker compose exec pocketbase pocketbase superuser upsert admin@example.com password
+```
+You can replace the email and password with your own credentials.
+
+
 * PocketBase Admin UI: http://127.0.0.1:8090/_/
 * MailHog Web UI (Local emails): http://localhost:8025
 
